@@ -51,6 +51,12 @@
             opacity: 1;
             visibility: visible;
         }
+        /* 最初のスライドを即座に表示（トランジションなし） */
+        .hero-slide.initial-active {
+            opacity: 1;
+            visibility: visible;
+            transition: none;
+        }
         .hero-slide .hero-bg-image {
             transform: scale(1.1);
             transition: transform 8s cubic-bezier(0.4, 0, 0.2, 1);
@@ -144,7 +150,7 @@
     <!-- Hero Section Slider -->
     <section class="relative h-screen overflow-hidden">
         <!-- Slide 1 -->
-        <div class="hero-slide active absolute inset-0 items-center justify-center">
+        <div class="hero-slide active initial-active absolute inset-0 items-center justify-center">
             <div class="hero-bg-image absolute inset-0 w-full h-full bg-gray-900 bg-[url('./img/silde1.jpg')] bg-contain md:bg-cover bg-no-repeat bg-bottom md:bg-bottom"></div>
             <div class="container mx-auto px-4 relative z-20">
                 <div class="hero-content">
@@ -170,7 +176,7 @@
 
         <!-- Slide 3 -->
         <div class="hero-slide absolute inset-0 items-center justify-center">
-            <div class="hero-bg-image absolute inset-0 w-full h-full bg-gray-900 bg-[url('./img/slide3.png')] bg-contain md:bg-cover bg-no-repeat bg-center"></div>
+            <div class="hero-bg-image absolute inset-0 w-full h-full bg-gray-900 bg-[url('./img/slide3.jpg')] bg-contain md:bg-cover bg-no-repeat bg-center"></div>
             <div class="container mx-auto px-4 relative z-20">
                 <div class="hero-content">
                     <h2 class="hero-title text-3xl md:text-5xl font-black leading-tight text-white">
@@ -763,13 +769,30 @@
     </div>
 
     <script>
-        // Lucideアイコンの初期化
-        lucide.createIcons();
+        // スライド画像のプリロード
+        function preloadSlideImages() {
+            const imageUrls = [
+                './img/silde1.jpg',
+                './img/slide2.jpg',
+                './img/slide3.jpg'
+            ];
+            
+            return Promise.all(
+                imageUrls.map(url => {
+                    return new Promise((resolve, reject) => {
+                        const img = new Image();
+                        img.onload = resolve;
+                        img.onerror = resolve; // エラーでも続行
+                        img.src = url;
+                    });
+                })
+            );
+        }
 
         // ヒーロースライダー制御
         let currentSlide = 0;
-        const slides = document.querySelectorAll('.hero-slide');
-        const totalSlides = slides.length;
+        let slides;
+        let totalSlides;
         let slideInterval;
 
         function showSlide(index) {
@@ -777,6 +800,7 @@
             slides.forEach((slide, i) => {
                 if (i === index) {
                     slide.classList.add('active');
+                    slide.classList.remove('initial-active'); // 初期表示クラスを削除
                 } else {
                     slide.classList.remove('active');
                 }
@@ -794,16 +818,46 @@
             slideInterval = setInterval(nextSlide, 6000); // 6秒ごとに自動切り替え
         }
 
-        // 自動スライド開始
-        startAutoSlide();
+        // DOMContentLoadedで初期化
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Lucideアイコンの初期化
+            lucide.createIcons();
 
-        // マウスホバー時に自動スライドを一時停止
-        const heroSection = document.querySelector('section.relative.h-screen');
-        heroSection.addEventListener('mouseenter', () => {
-            clearInterval(slideInterval);
-        });
-        heroSection.addEventListener('mouseleave', () => {
+            // スライド要素を取得
+            slides = document.querySelectorAll('.hero-slide');
+            totalSlides = slides.length;
+
+            // 画像をプリロード
+            await preloadSlideImages();
+
+            // 最初のスライドを表示（既にinitial-activeクラスが付いているので即座に表示される）
+            // 自動スライド開始
             startAutoSlide();
+
+            // マウスホバー時に自動スライドを一時停止
+            const heroSection = document.querySelector('section.relative.h-screen');
+            if (heroSection) {
+                heroSection.addEventListener('mouseenter', () => {
+                    clearInterval(slideInterval);
+                });
+                heroSection.addEventListener('mouseleave', () => {
+                    startAutoSlide();
+                });
+            }
+
+            // ナビゲーションのスクロールエフェクト
+            const navbar = document.getElementById('navbar');
+            if (navbar) {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 50) {
+                        navbar.classList.add('shadow-xl', 'py-3');
+                        navbar.classList.remove('py-4');
+                    } else {
+                        navbar.classList.remove('shadow-xl', 'py-3');
+                        navbar.classList.add('py-4');
+                    }
+                });
+            }
         });
 
         // 保有車両モーダル
@@ -829,21 +883,6 @@
             modal.classList.remove('flex');
         }
 
-        // ナビゲーションのスクロールエフェクト
-        const navbar = document.getElementById('navbar');
-        const navTitle = document.getElementById('nav-title');
-        const navSubtitle = document.getElementById('nav-subtitle');
-        const navLinks = document.getElementById('nav-links');
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('shadow-xl', 'py-3');
-                navbar.classList.remove('py-4');
-            } else {
-                navbar.classList.remove('shadow-xl', 'py-3');
-                navbar.classList.add('py-4');
-            }
-        });
 
         // モバイルメニューの開閉
         function toggleMenu() {
