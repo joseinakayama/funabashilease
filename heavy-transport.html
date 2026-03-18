@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重機運搬・回送サービス | 有限会社舟橋リース【茨城県・全国対応】</title>
+    <meta name="description" content="ICT建機対応の大型トレーラーからセルフローダーまで全8台体制。最大積載量36.5tの重機回送に対応。茨城県古河市を拠点に全国配送。">
+    <link rel="canonical" href="https://example.com/heavy-transport.html">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&display=swap');
+        body { font-family: 'Noto Sans JP', sans-serif; scroll-behavior: smooth; }
+        .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .nav-glass { background-color: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); }
+        .vehicle-detail { max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .vehicle-detail.open { max-height: 2000px; }
+        .detail-toggle-btn svg { transition: transform 0.3s ease; }
+        .vehicle-lightbox { display: none; position: fixed; inset: 0; z-index: 100; background: rgba(0, 0, 0, 0.92); align-items: center; justify-content: center; flex-direction: column; }
+        .vehicle-lightbox.active { display: flex; }
+        .vehicle-lightbox img { transition: opacity 0.3s ease; }
+        .vehicle-lightbox img.fading { opacity: 0; }
+        .lightbox-nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.1); border: none; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.3s, transform 0.3s; backdrop-filter: blur(4px); }
+        .lightbox-nav-btn:hover { background: rgba(255,255,255,0.25); transform: translateY(-50%) scale(1.1); }
+        .vehicle-photo:hover img { filter: brightness(1.05); }
+        .vehicle-photo::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0); transition: background 0.3s; pointer-events: none; z-index: 5; }
+        .vehicle-photo:hover::after { background: rgba(0,0,0,0.08); }
+    </style>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "有限会社舟橋リース",
+        "description": "茨城県古河市の重機運搬・貸切バス会社",
+        "url": "https://example.com/",
+        "telephone": "0280-76-5732",
+        "faxNumber": "0280-76-5793",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "尾崎2831-3",
+            "addressLocality": "古河市",
+            "addressRegion": "茨城県",
+            "postalCode": "306-0101",
+            "addressCountry": "JP"
+        },
+        "foundingDate": "1992-01",
+        "numberOfEmployees": { "@type": "QuantitativeValue", "value": 11 }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": "重機運搬・回送サービス",
+        "description": "ICT建機対応の大型トレーラーからセルフローダーまで全8台体制。最大積載量36.5tの重機回送に対応。茨城県古河市を拠点に全国配送。",
+        "provider": {
+            "@type": "LocalBusiness",
+            "name": "有限会社舟橋リース"
+        },
+        "areaServed": {
+            "@type": "Country",
+            "name": "日本"
+        },
+        "serviceType": "重機運搬・回送"
+    }
+    </script>
+</head>
+<body class="bg-white text-gray-900 overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="sticky top-0 w-full z-50 transition-all duration-300 py-4 nav-glass shadow-lg">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <a href="index.html" class="block transition-opacity hover:opacity-80">
+                    <h1 id="nav-title" class="w-40">
+                        <img src="./img/logo.png" alt="有限会社 船橋 ロゴ" class="w-full h-auto object-contain" loading="eager">
+                    </h1>
+                </a>
+            </div>
+            <div class="hidden md:flex items-center space-x-2 text-gray-900" id="nav-links">
+                <a href="about.html" class="hover:text-yellow-500 transition-colors px-4 py-2 font-bold">こだわり</a>
+                <a href="heavy-transport.html" class="text-yellow-500 px-4 py-2 font-bold">重機運搬</a>
+                <a href="charter-bus.html" class="hover:text-yellow-500 transition-colors px-4 py-2 font-bold">貸切バス</a>
+                <a href="recruit.html" class="hover:text-yellow-500 transition-colors px-4 py-2 font-bold">採用情報</a>
+                <a href="contact.html" class="ml-4 bg-yellow-500 hover:bg-yellow-600 text-black px-6 py-2 rounded-full font-bold flex items-center gap-2 transition-all transform hover:scale-105 shadow-lg">
+                    <i data-lucide="phone" class="w-4 h-4"></i> お問い合わせ
+                </a>
+            </div>
+            <button class="md:hidden text-gray-900 bg-white p-2 rounded shadow hover:bg-gray-100 transition-colors" onclick="toggleMenu()">
+                <i data-lucide="menu" id="menu-icon"></i>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white absolute top-full left-0 w-full shadow-2xl border-t animate-fade-in">
+            <div class="flex flex-col p-6 space-y-4">
+                <a href="about.html" class="block font-bold text-lg border-b pb-2">こだわり</a>
+                <a href="heavy-transport.html" class="block font-bold text-lg border-b pb-2 text-yellow-500">重機運搬</a>
+                <a href="charter-bus.html" class="block font-bold text-lg border-b pb-2">貸切バス</a>
+                <a href="recruit.html" class="block font-bold text-lg border-b pb-2">採用情報</a>
+                <a href="contact.html" class="bg-yellow-500 text-black px-5 py-4 rounded font-black text-center shadow-lg">お問い合わせ</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="relative bg-gray-900 py-20 md:py-32 overflow-hidden">
+        <div class="absolute inset-0 bg-[url('./img/silde1.jpg')] bg-cover bg-center opacity-30"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <span class="text-yellow-500 font-black uppercase tracking-widest text-xs mb-4 block">Heavy Equipment Transport</span>
+            <h2 class="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">重機運搬事業</h2>
+            <p class="text-lg text-gray-300 max-w-2xl leading-relaxed">ICT建機を含むあらゆる重機を、全国の現場へ安全・確実にお届けします。</p>
+        </div>
+    </section>
+
+    <!-- Service Detail -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row gap-16 items-center">
+                <div class="md:w-1/2">
+                    <h3 class="text-3xl font-black mb-6">リース会社様からの<br />ご依頼を中心に、<span class="text-yellow-500">全国対応。</span></h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">リース会社様からのご依頼を中心に、最新のICT建機を含むあらゆる重機を現場へ確実にお届けします。セルフ車からトレーラーまで、機材に合わせた最適な輸送をご提案します。</p>
+                    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                        <li class="flex items-center gap-3 font-black text-gray-800"><i data-lucide="shield-check" class="text-yellow-500"></i> 全国配送対応</li>
+                        <li class="flex items-center gap-3 font-black text-gray-800"><i data-lucide="shield-check" class="text-yellow-500"></i> ICT建機対応</li>
+                        <li class="flex items-center gap-3 font-black text-gray-800"><i data-lucide="shield-check" class="text-yellow-500"></i> トレーラー完備</li>
+                        <li class="flex items-center gap-3 font-black text-gray-800"><i data-lucide="shield-check" class="text-yellow-500"></i> 熟練の運転技術</li>
+                    </ul>
+                    <a href="contact.html" class="inline-block bg-yellow-500 hover:bg-yellow-600 text-black px-8 py-4 rounded-full font-black transition-all transform hover:scale-105 shadow-lg">
+                        <span class="flex items-center gap-2"><i data-lucide="phone" class="w-5 h-5"></i> お問い合わせ</span>
+                    </a>
+                </div>
+                <div class="md:w-1/2">
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-3xl p-10">
+                        <h4 class="text-xl font-black mb-6 text-yellow-700">対応可能な運搬物</h4>
+                        <div class="space-y-4 text-gray-700">
+                            <div class="flex items-start gap-3">
+                                <i data-lucide="truck" class="text-yellow-500 mt-1 shrink-0"></i>
+                                <div><p class="font-bold">油圧ショベル（バックホウ）</p><p class="text-sm text-gray-500">0.05〜1.0クラスまで全サイズ対応</p></div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i data-lucide="truck" class="text-yellow-500 mt-1 shrink-0"></i>
+                                <div><p class="font-bold">ブルドーザー・ローラー</p><p class="text-sm text-gray-500">大型ロードローラー、コンバインドローラー等</p></div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i data-lucide="truck" class="text-yellow-500 mt-1 shrink-0"></i>
+                                <div><p class="font-bold">ICT建機</p><p class="text-sm text-gray-500">最新のICT対応建設機械にも万全の体制で対応</p></div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i data-lucide="truck" class="text-yellow-500 mt-1 shrink-0"></i>
+                                <div><p class="font-bold">その他 建設資材・機材</p><p class="text-sm text-gray-500">鋼材、仮設材、フォークリフト、発電機、コンプレッサー等</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fleet Section -->
+    <section id="fleet" class="py-24 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-black mb-6">保有車両紹介</h2>
+                <div class="h-1 w-20 bg-yellow-500 mx-auto mb-6"></div>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto">トレーラー3台、大型トラック4台、中型トラック1台の計8台体制で、あらゆる重機運搬ニーズに対応します。</p>
+            </div>
+
+            <!-- Trailer Section -->
+            <h3 class="text-2xl font-black mb-8 flex items-center gap-3"><span class="bg-yellow-500 text-black px-4 py-1 rounded text-sm uppercase tracking-widest">Trailer</span> トレーラー</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 items-start mb-20">
+                <!-- Vehicle Card: トレーラー 台車① -->
+                <div class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 animate-fade-in">
+                    <div class="relative aspect-[4/3] overflow-hidden bg-gray-100 cursor-pointer vehicle-photo">
+                        <img src="img/trailer2.jpg" alt="大型トレーラー 台車① 最大積載量18,500kg" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute bottom-4 left-4"><span class="bg-yellow-500 px-4 py-1 text-xs font-black text-black rounded shadow-lg uppercase">Trailer / 台車①</span></div>
+                    </div>
+                    <div class="p-8">
+                        <h4 class="text-2xl font-black mb-2">トレーラー台車[128]</h4>
+                        <p class="text-sm font-medium text-gray-800 bg-gray-50 px-4 py-2 rounded-lg inline-block">最大積載量 18,500kg（長さ449cm × 幅285cm × 高さ75cm）</p>
+                        <p class="text-yellow-600 font-black text-base mt-4">堅実な積載力で現場の足元を支える。</p>
+                        <p class="text-gray-500 text-sm leading-relaxed mt-2">最大積載量 18.5t の大型重機用トレーラー台車です。コンパクトな荷台長ながら幅広 2,850mm のデッキを持ち、中型〜大型クラスの油圧ショベルやブルドーザーを安定して搭載。取り回しの良さと十分な積載能力を両立し、日常的な重機回送業務の主力として活躍します。</p>
+                        <button onclick="toggleDetail(this, 'detail-128')" class="mt-4 text-sm text-yellow-600 font-bold hover:text-yellow-700 flex items-center gap-1 detail-toggle-btn">
+                            <span>詳しく見る</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div id="detail-128" class="vehicle-detail">
+                            <div class="pt-4 mt-4 border-t border-gray-100 text-left">
+                                <h5 class="font-black text-sm text-gray-900 mb-3">■ 主な特徴</h5>
+                                <div class="space-y-3 text-sm">
+                                    <div><p class="font-bold text-gray-800">・18.5t の堅実な積載量</p><p class="text-gray-500 ml-3 mt-1">0.45〜0.7 クラスの油圧ショベルやミニブルドーザー等の運搬に対応。幅広い建設機械の回送ニーズに応えます。</p></div>
+                                    <div><p class="font-bold text-gray-800">・ワイドデッキ（幅 2,850mm）</p><p class="text-gray-500 ml-3 mt-1">幅広のデッキにより、クローラ幅のある重機でも安定した積載が可能。積み降ろし時の安全性を確保します。</p></div>
+                                    <div><p class="font-bold text-gray-800">・低床設計（高さ 750mm）</p><p class="text-gray-500 ml-3 mt-1">荷台高を抑えた設計により、高さ制限のあるルートでも安心して走行。重心の低さが走行安定性にも貢献します。</p></div>
+                                </div>
+                                <h5 class="font-black text-sm text-gray-900 mb-3 mt-6">■ 主要諸元（スペック）</h5>
+                                <table class="w-full text-sm">
+                                    <tr class="border-b border-gray-100"><td class="py-2 font-bold text-gray-800 w-2/5">最大積載量</td><td class="py-2 text-gray-600">18,500 kg（18.5t）</td></tr>
+                                    <tr class="border-b border-gray-100"><td class="py-2 font-bold text-gray-800">荷台寸法（L×W×H）</td><td class="py-2 text-gray-600">4,490mm × 2,850mm × 750mm</td></tr>
+                                    <tr class="border-b border-gray-100"><td class="py-2 font-bold text-gray-800">車両特徴</td><td class="py-2 text-gray-600">低床設計 / ワイドデッキ</td></tr>
+                                    <tr><td class="py-2 font-bold text-gray-800">主な運搬対象</td><td class="py-2 text-gray-600">0.45〜0.7 クラス油圧ショベル、ブルドーザー、各種建設機械など</td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Vehicle Card: トレーラー 台車② -->
+                <div class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 animate-fade-in">
+                    <div class="relative aspect-[4/3] overflow-hidden bg-gray-100 cursor-pointer vehicle-photo">
+                        <img src="img/trailer_2383_01.jpg" alt="大型トレーラー 台車② 最大積載量36,500kg" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute bottom-4 left-4"><span class="bg-yellow-500 px-4 py-1 text-xs font-black text-black rounded shadow-lg uppercase">Trailer / 台車②</span></div>
+                    </div>
+                    <div class="p-8">
+                        <h4 class="text-2xl font-black mb-2">トレーラー台車[2383]</h4>
+                        <p class="text-sm font-medium text-gray-800 bg-gray-50 px-4 py-2 rounded-lg inline-block">最大積載量 36,500kg（長さ430cm × 幅299cm × 高さ66cm）</p>
+                        <p class="text-yellow-600 font-black text-base mt-4">圧倒的な積載力、最重量級の現場を制する。</p>
+                        <p class="text-gray-500 text-sm leading-relaxed mt-2">最大積載量 36.5t を誇る当社最大級のトレーラー台車です。荷台高をわずか 660mm に抑えた超低床設計により、トンネルや高架下の高さ制限をクリアしながら大型重機を安全に輸送。幅 2,990mm のワイドデッキが大型クローラ機械の安定積載を実現し、大規模現場の重機回送において最もスタンダードかつ信頼性の高い車両です。</p>
+                        <button onclick="toggleDetail(this, 'detail-2383')" class="mt-4 text-sm text-yellow-600 font-bold hover:text-yellow-700 flex items-center gap-1 detail-toggle-btn">
+                            <span>詳しく見る</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div id="detail-2383" class="vehicle-detail">
+                            <div class="pt-4 mt-4 border-t border-gray-100 text-left">
+                                <h5 class="font-black text-sm text-gray-900 mb-3">■ 主な特徴</h5>
+                                <div class="space-y-3 text-sm">
+                                    <div><p class="font-bold text-gray-800">・36.5t の圧倒的積載量</p><p class="text-gray-500 ml-3 mt-1">20t クラスの大型油圧ショベルやブルドーザーにも対応。大規模土木・建築現場で求められる大型重機の輸送を確実にこなします。</p></div>
+                                    <div><p class="font-bold text-gray-800">・超低床設計（高さ 660mm）</p><p class="text-gray-500 ml-3 mt-1">業界でもトップクラスの低床仕様。高さ制限が厳しい都市部のトンネルや高架下も安心して通行できます。</p></div>
+                                    <div><p class="font-bold text-gray-800">・ワイドデッキ（幅 2,990mm）</p><p class="text-gray-500 ml-3 mt-1">約 3m の荷台幅により、大型クローラ重機でもゆとりを持って積載可能。安定した輸送を実現します。</p></div>
+                                </div>
+                                <h5 class="font-black text-sm text-gray-900 mb-3 mt-6">■ 主要諸元（スペック）</h5>
+                                <table class="w-full text-sm">
+                                    <tr class="border-b border-gray-100"><td class="py-2 font-bold text-gray-800 w-2/5">最大積載量</td><td class="py-2 text-gray-600">36,500 kg（36.5t）</td></tr>
+                                    <tr class="border-b border-gray-100"><td class="py-2 font-bold text-gray-800">荷台寸法（L×W×H）</td><td class="py-2 text-gray-600">4,300mm × 2,990mm × 660mm</td></tr>
+                                    <tr class="border-b border-gray-100"><td class="py-2 font-bold text-gray-800">車両特徴</td><td class="py-2 text-gray-600">超低床設計 / ワイドデッキ / 大型重機対応</td></tr>
+                                    <tr><td class="py-2 font-bold text-gray-800">主な運搬対象</td><td class="py-2 text-gray-600">0.7〜1.0 クラス大型油圧ショベル、ブルドーザー、クレーン車など</td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Vehicle Card: トレーラー 台車③ -->
+                <div class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 animate-fade-in">
+                    <div class="relative aspect-[4/3] overflow-hidden bg-gray-100 cursor-pointer vehicle-photo">
+                        <img src="img/trailer_894_01.jpg" alt="大型トレーラー 台車③ 最大積載量22,000kg ロングデッキ" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute bottom-4 left-4"><span class="bg-yellow-500 px-4 py-1 text-xs font-black text-black rounded shadow-lg uppercase">Trailer / 台車③</span></div>
+                    </div>
+                    <div class="p-8">
+                        <h4 class="text-2xl font-black mb-2">トレーラー台車[894]</h4>
+                        <p class="text-sm font-medium text-gray-800 bg-gray-50 px-4 py-2 rounded-lg inline-block">最大積載量 22,000kg（長さ785cm × 幅282cm × 高さ90cm）</p>
+                        <p class="text-yellow-600 font-black text-base mt-4">ロングボディで多様な重機に対応する万能台車。</p>
+                        <p class="text-gray-500 text-sm leading-relaxed mt-2">最大積載量 22.0t に加え、荷台長 7,850mm という当社最長のロングデッキを持つトレーラー台車です。キャビン後部の大型ハイジャッキにより荷台を大きく傾斜させ、自走式重機のセルフ積み降ろしをスムーズに行います。長尺機械や複数の小型機材の同時運搬にも柔軟に対応する万能車両です。</p>
+                        <button onclick="toggleDetail(this, 'detail-894')" class="mt-4 text-sm text-yellow-600 font-bold hover:text-yellow-700 flex items-center gap-1 detail-toggle-btn">
+                            <span>詳しく見る</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div id="detail-894" class="vehicle-detail">
+                            <div class="pt-4 mt-4 border-t border-gray-100 text-left">
+                                <h5 class="font-black text-sm text-gray-900 mb-3">■ 主な特徴</h5>
+                                <div class="space-y-3 text-sm">
+                                    <div><p class="font-bold text-gray-800">・22.0t の十分な積載量</p><p class="text-gray-500 ml-3 mt-1">0.45〜0.7 クラスの油圧ショベルをはじめ、大型ローラーや舗装機械など幅広い建設機械の運搬に最適です。</p></div>
+                                    <div><p class="font-bold text-gray-800">・超ロングデッキ（7,850mm）</p><p class="text-gray-500 ml-3 mt-1">約 8m のゆとりある荷台長を活かし、長尺重機の輸送はもちろん、重機＋アタッチメントの同時積載にも対応します。</p></div>
+                                    <div><p class="font-bold text-gray-800">・ハイジャッキ傾斜機構</p><p class="text-gray-500 ml-3 mt-1">大型ジャッキで車体前部を持ち上げ、荷台を最適角度に傾斜。自走式重機のセルフ積み降ろしを安全かつスピーディに行います。</p></div>
+                                </div>
+                                <h5 class="font-black text-sm text-gray-900 mb-3 mt-6">■ 主要諸元（スペック）</h5>
+                                <table class="w-full text-sm">
+                                    <tr class="border-b border-gray-100"><td class="py-2 font-bold text-gray-800 w-2/5">最大積載量</td><td class="py-2 text-gray-600">22,000 kg（22.0t）</td></tr>
+                                    <tr class="border-b border-gray-100"><td class="py-2 font-bold text-gray-800">荷台寸法（L×W×H）</td><td class="py-2 text-gray-600">7,850mm × 2,820mm × 900mm</td></tr>
+                                    <tr class="border-b border-gray-100"><td class="py-2 font-bold text-gray-800">車両特徴</td><td class="py-2 text-gray-600">ハイジャッキ傾斜機構 / 超ロングデッキ / ウインチ完備</td></tr>
+                                    <tr><td class="py-2 font-bold text-gray-800">主な運搬対象</td><td class="py-2 text-gray-600">0.45〜0.7 クラス油圧ショベル、道路舗装機械、各種ロードローラーなど</td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Truck Section -->
+            <h3 class="text-2xl font-black mb-8 flex items-center gap-3"><span class="bg-yellow-500 text-black px-4 py-1 rounded text-sm uppercase tracking-widest">Truck</span> 大型・中型トラック</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
+                <!-- Vehicle Card: 大型トラック車両① -->
+                <div class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 animate-fade-in">
+                    <div class="relative aspect-[4/3] overflow-hidden bg-gray-100 cursor-pointer vehicle-photo">
+                        <img src="img/track4517_01.jpg" alt="大型セルフ車 最大積載量10,600kg" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute bottom-4 left-4"><span class="bg-yellow-500 px-4 py-1 text-xs font-black text-black rounded shadow-lg uppercase">大型回送車 / 車両①</span></div>
+                    </div>
+                    <div class="p-8">
+                        <h4 class="text-2xl font-black mb-2">大型トラック車両[4517]</h4>
+                        <p class="text-sm font-medium text-gray-800 bg-gray-50 px-4 py-2 rounded-lg inline-block">最大積載量 10,600kg（長さ635cm × 幅250cm × 高さ97cm）</p>
+                        <p class="text-yellow-600 font-black text-base mt-4">機動力と積載力のベストバランス。</p>
+                        <p class="text-gray-500 text-sm leading-relaxed mt-2">現場を選ばない主力車両。最大積載量 10.6t を確保し、長さ 6,350mm のゆとりある荷台を持つ大型セルフローダーです。トレーラーが進入困難な中規模現場や、都市部の狭隘な道路でも、高い機動力を活かして確実に重機を届けます。</p>
+                        <button onclick="toggleDetail(this, 'detail-4517')" class="mt-4 text-sm text-yellow-600 font-bold hover:text-yellow-700 flex items-center gap-1 detail-toggle-btn">
+                            <span>詳しく見る</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div id="detail-4517" class="vehicle-detail">
+                            <div class="pt-4 mt-4 border-t border-gray-100 text-left">
+                                <h5 class="font-black text-sm text-gray-900 mb-3">■ 主な特徴</h5>
+                                <div class="space-y-3 text-sm">
+                                    <div><p class="font-bold text-gray-800">・10.6t のゆとりある積載量</p><p class="text-gray-500 ml-3 mt-1">0.45 クラスの油圧ショベル（バックホウ）や、10t クラスの道路舗装機械、コンバインドローラー等の運搬に最適です。</p></div>
+                                    <div><p class="font-bold text-gray-800">・ロングな荷台長（6,350mm）</p><p class="text-gray-500 ml-3 mt-1">6m を超える余裕のある荷台長により、重機とアタッチメントの同時運搬や、長尺の建設資材の輸送にも柔軟に対応します。</p></div>
+                                    <div><p class="font-bold text-gray-800">・強力ハイジャッキ（足つき）仕様</p><p class="text-gray-500 ml-3 mt-1">フロントジャッキによる車体挙動の安定化と、最適な積載角度の形成により、自走式重機のセルフ積み降ろしを安全・スピーディに行います。</p></div>
+                                </div>
+                                <h5 class="font-black text-sm text-gray-900 mb-3 mt-6">■ 主要諸元（スペック）</h5>
+                                <table class="w-full text-sm">
+                                    <tr class="border-b border-gray-100"><td class="py-2 font-bold text-gray-800 w-2/5">最大積載量</td><td class="py-2 text-gray-600">10,600 kg（10.6t）</td></tr>
+                                    <tr class="border-b border-gray-100"><td class="py-2 font-bold text-gray-800">荷台寸法（L×W×H）</td><td class="py-2 text-gray-600">6,350mm × 2,500mm × 970mm</td></tr>
+                                    <tr class="border-b border-gray-100"><td class="py-2 font-bold text-gray-800">車両特徴</td><td class="py-2 text-gray-600">ハイジャッキ（足つき） / ウインチ完備 / ロングボディ</td></tr>
+                                    <tr><td class="py-2 font-bold text-gray-800">主な運搬対象</td><td class="py-2 text-gray-600">0.25〜0.45 クラス油圧ショベル、各種ロードローラー、フォークリフト、建設資材など</td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Vehicle Card: 大型トラック車両② -->
+                <div class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 animate-fade-in">
+                    <div class="relative aspect-[4/3] overflow-hidden bg-gray-100 cursor-pointer vehicle-photo">
+                        <img src="img/track8069_01.jpg" alt="大型トラック クレーン・ウインチ付 最大積載量5,800kg" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute bottom-4 left-4"><span class="bg-yellow-500 px-4 py-1 text-xs font-black text-black rounded shadow-lg uppercase">大型回送車 / 車両②</span></div>
+                    </div>
+                    <div class="p-8">
+                        <h4 class="text-2xl font-black mb-2">大型トラック車両[8069]</h4>
+                        <p class="text-sm font-medium text-gray-800 bg-gray-50 px-4 py-2 rounded-lg inline-block">最大積載量 5,800kg（長さ500cm × 幅240cm × 高さ110cm）</p>
+                        <p class="text-yellow-600 font-black text-base mt-4">クレーン＋ウインチの多機能性で、あらゆる積み込みに対応。</p>
+                        <p class="text-gray-500 text-sm leading-relaxed mt-2">最大積載量 5.8t のクレーン・ウインチ併装型大型トラックです。自走できない機械や重量物の吊り上げ・引き上げ作業に対応でき、通常のセルフ車では難しい特殊な積み込みシーンで真価を発揮します。</p>
+                        <button onclick="toggleDetail(this, 'detail-8069')" class="mt-4 text-sm text-yellow-600 font-bold hover:text-yellow-700 flex items-center gap-1 detail-toggle-btn">
+                            <span>詳しく見る</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div id="detail-8069" class="vehicle-detail">
+                            <div class="pt-4 mt-4 border-t border-gray-100 text-left">
+                                <h5 class="font-black text-sm text-gray-900 mb-3">■ 主な特徴</h5>
+                                <div class="space-y-3 text-sm">
+                                    <div><p class="font-bold text-gray-800">・クレーン装備</p><p class="text-gray-500 ml-3 mt-1">車載クレーンにより、自走不能な機械や重量部品の吊り上げ積載に対応。故障機の回収や特殊搬入にも活躍します。</p></div>
+                                    <div><p class="font-bold text-gray-800">・ウインチ完備</p><p class="text-gray-500 ml-3 mt-1">強力なウインチによる引き上げ作業で、不整地や傾斜地での積み込みも確実に行います。</p></div>
+                                    <div><p class="font-bold text-gray-800">・5.8t の機動的な積載力</p><p class="text-gray-500 ml-3 mt-1">ミニショベルやコンパクトトラックローダー、発電機、コンプレッサーなど中小型機材の運搬に最適です。</p></div>
+                                </div>
+                                <h5 class="font-black text-sm text-gray-900 mb-3 mt-6">■ 主要諸元（スペック）</h5>
+                                <table class="w-full text-sm">
+                                    <tr class="border-b border-gray-100"><td class="py-2 font-bold text-gray-800 w-2/5">最大積載量</td><td class="py-2 text-gray-600">5,800 kg（5.8t）</td></tr>
+                                    <tr class="border-b border-gray-100"><td class="py-2 font-bold text-gray-800">荷台寸法（L×W×H）</td><td class="py-2 text-gray-600">5,000mm × 2,400mm × 1,100mm</td></tr>
+                                    <tr class="border-b border-gray-100"><td class="py-2 font-bold text-gray-800">車両特徴</td><td class="py-2 text-gray-600">クレーン装備 / ウインチ完備 / 多機能仕様</td></tr>
+                                    <tr><td class="py-2 font-bold text-gray-800">主な運搬対象</td><td class="py-2 text-gray-600">ミニショベル、小型ローラー、発電機、コンプレッサー、建設資材など</td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Vehicle Card: 大型トラック車両③ -->
+                <div class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 animate-fade-in">
+                    <div class="relative aspect-[4/3] overflow-hidden bg-gray-100 cursor-pointer vehicle-photo">
+                        <img src="img/track1208_01.jpg" alt="大型トラック クレーン・ウインチ付 最大積載量10,300kg" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute bottom-4 left-4"><span class="bg-yellow-500 px-4 py-1 text-xs font-black text-black rounded shadow-lg uppercase">大型回送車 / 車両③</span></div>
+                    </div>
+                    <div class="p-8">
+                        <h4 class="text-2xl font-black mb-2">大型トラック車両[1208]</h4>
+                        <p class="text-sm font-medium text-gray-800 bg-gray-50 px-4 py-2 rounded-lg inline-block">最大積載量 10,300kg（長さ745cm × 幅245cm × 高さ110cm）</p>
+                        <p class="text-yellow-600 font-black text-base mt-4">大型クレーン×ロングボディ、高積載の万能回送車。</p>
+                        <p class="text-gray-500 text-sm leading-relaxed mt-2">最大積載量 10.3t に加え、荷台長 7,450mm のロングボディを持つクレーン・ウインチ併装型大型トラックです。高い積載力と長い荷台を活かし、0.25〜0.45 クラスの油圧ショベルから長尺の建設資材まで幅広く運搬。</p>
+                        <button onclick="toggleDetail(this, 'detail-1208')" class="mt-4 text-sm text-yellow-600 font-bold hover:text-yellow-700 flex items-center gap-1 detail-toggle-btn">
+                            <span>詳しく見る</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div id="detail-1208" class="vehicle-detail">
+                            <div class="pt-4 mt-4 border-t border-gray-100 text-left">
+                                <h5 class="font-black text-sm text-gray-900 mb-3">■ 主な特徴</h5>
+                                <div class="space-y-3 text-sm">
+                                    <div><p class="font-bold text-gray-800">・10.3t の高い積載力</p><p class="text-gray-500 ml-3 mt-1">0.25〜0.45 クラスの油圧ショベルやロードローラーなど、大型クラスの建設機械にも対応する十分な積載力を備えています。</p></div>
+                                    <div><p class="font-bold text-gray-800">・ロングボディ（7,450mm）</p><p class="text-gray-500 ml-3 mt-1">7m を超える荷台長により、長尺の鋼材・仮設材の輸送や、重機とアタッチメントの同時運搬にも柔軟に対応します。</p></div>
+                                    <div><p class="font-bold text-gray-800">・クレーン＋ウインチ併装</p><p class="text-gray-500 ml-3 mt-1">車載クレーンによる吊り上げとウインチによる引き上げの両機能を装備。自走不能機や重量物の積み込みにも確実に対応します。</p></div>
+                                </div>
+                                <h5 class="font-black text-sm text-gray-900 mb-3 mt-6">■ 主要諸元（スペック）</h5>
+                                <table class="w-full text-sm">
+                                    <tr class="border-b border-gray-100"><td class="py-2 font-bold text-gray-800 w-2/5">最大積載量</td><td class="py-2 text-gray-600">10,300 kg（10.3t）</td></tr>
+                                    <tr class="border-b border-gray-100"><td class="py-2 font-bold text-gray-800">荷台寸法（L×W×H）</td><td class="py-2 text-gray-600">7,450mm × 2,450mm × 1,100mm</td></tr>
+                                    <tr class="border-b border-gray-100"><td class="py-2 font-bold text-gray-800">車両特徴</td><td class="py-2 text-gray-600">クレーン装備 / ウインチ完備 / ロングボディ</td></tr>
+                                    <tr><td class="py-2 font-bold text-gray-800">主な運搬対象</td><td class="py-2 text-gray-600">0.25〜0.45 クラス油圧ショベル、各種ロードローラー、鋼材、仮設材など</td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Vehicle Card: 大型トラック車両④ -->
+                <div class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 animate-fade-in">
+                    <div class="relative aspect-[4/3] overflow-hidden bg-gray-100 cursor-pointer vehicle-photo">
+                        <img src="img/track79_01.jpg" alt="大型トラック 当社最大セルフ車 最大積載量11,900kg" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute bottom-4 left-4"><span class="bg-yellow-500 px-4 py-1 text-xs font-black text-black rounded shadow-lg uppercase">大型回送車 / 車両④</span></div>
+                    </div>
+                    <div class="p-8">
+                        <h4 class="text-2xl font-black mb-2">大型トラック車両[79]</h4>
+                        <p class="text-sm font-medium text-gray-800 bg-gray-50 px-4 py-2 rounded-lg inline-block">最大積載量 11,900kg（長さ770cm × 幅249cm × 高さ110cm）</p>
+                        <p class="text-yellow-600 font-black text-base mt-4">当社最大のセルフ車。積載力と荷台長で大型案件に挑む。</p>
+                        <p class="text-gray-500 text-sm leading-relaxed mt-2">最大積載量 11.9t と荷台長 7,700mm を誇る、当社セルフ車ラインナップ最大級の車両です。トレーラーを手配するほどではないが高い積載力が求められるシーンで活躍。</p>
+                        <button onclick="toggleDetail(this, 'detail-79')" class="mt-4 text-sm text-yellow-600 font-bold hover:text-yellow-700 flex items-center gap-1 detail-toggle-btn">
+                            <span>詳しく見る</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div id="detail-79" class="vehicle-detail">
+                            <div class="pt-4 mt-4 border-t border-gray-100 text-left">
+                                <h5 class="font-black text-sm text-gray-900 mb-3">■ 主な特徴</h5>
+                                <div class="space-y-3 text-sm">
+                                    <div><p class="font-bold text-gray-800">・11.9t の最大級積載力</p><p class="text-gray-500 ml-3 mt-1">セルフ車としてはトップクラスの積載量。0.45 クラス油圧ショベルや大型舗装機械など、トレーラーなしで運搬可能な幅が広がります。</p></div>
+                                    <div><p class="font-bold text-gray-800">・最長クラスの荷台（7,700mm）</p><p class="text-gray-500 ml-3 mt-1">約 7.7m のロングデッキにより、大型重機の安定積載はもちろん、長尺資材の輸送にも十分に対応します。</p></div>
+                                    <div><p class="font-bold text-gray-800">・クレーン＋ウインチ併装</p><p class="text-gray-500 ml-3 mt-1">自走不能な重機の吊り上げ・引き上げにも対応。現場のあらゆる条件下で確実な積み降ろしを行います。</p></div>
+                                </div>
+                                <h5 class="font-black text-sm text-gray-900 mb-3 mt-6">■ 主要諸元（スペック）</h5>
+                                <table class="w-full text-sm">
+                                    <tr class="border-b border-gray-100"><td class="py-2 font-bold text-gray-800 w-2/5">最大積載量</td><td class="py-2 text-gray-600">11,900 kg（11.9t）</td></tr>
+                                    <tr class="border-b border-gray-100"><td class="py-2 font-bold text-gray-800">荷台寸法（L×W×H）</td><td class="py-2 text-gray-600">7,700mm × 2,490mm × 1,100mm</td></tr>
+                                    <tr class="border-b border-gray-100"><td class="py-2 font-bold text-gray-800">車両特徴</td><td class="py-2 text-gray-600">クレーン装備 / ウインチ完備 / 超ロングボディ</td></tr>
+                                    <tr><td class="py-2 font-bold text-gray-800">主な運搬対象</td><td class="py-2 text-gray-600">0.25〜0.45 クラス油圧ショベル、大型ロードローラー、道路舗装機械など</td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Vehicle Card: 中型トラック車両① -->
+                <div class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 animate-fade-in">
+                    <div class="relative aspect-[4/3] overflow-hidden bg-gray-100 cursor-pointer vehicle-photo">
+                        <img src="img/track9148_01.jpg" alt="中型トラック 最大積載量3,000kg 狭小現場対応" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute bottom-4 left-4"><span class="bg-yellow-500 px-4 py-1 text-xs font-black text-black rounded shadow-lg uppercase">中型トラック / 車両①</span></div>
+                    </div>
+                    <div class="p-8">
+                        <h4 class="text-2xl font-black mb-2">中型トラック車両[9148]</h4>
+                        <p class="text-sm font-medium text-gray-800 bg-gray-50 px-4 py-2 rounded-lg inline-block">最大積載量 3,000kg（長さ500cm × 幅200cm × 高さ100cm）</p>
+                        <p class="text-yellow-600 font-black text-base mt-4">小回り抜群。狭小現場のスペシャリスト。</p>
+                        <p class="text-gray-500 text-sm leading-relaxed mt-2">最大積載量 3.0t の中型セルフローダーです。大型車両が進入できない住宅街や狭小現場で威力を発揮し、ミニショベルや小型ローラーなどの軽量機械をスピーディに届けます。</p>
+                        <button onclick="toggleDetail(this, 'detail-9148')" class="mt-4 text-sm text-yellow-600 font-bold hover:text-yellow-700 flex items-center gap-1 detail-toggle-btn">
+                            <span>詳しく見る</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div id="detail-9148" class="vehicle-detail">
+                            <div class="pt-4 mt-4 border-t border-gray-100 text-left">
+                                <h5 class="font-black text-sm text-gray-900 mb-3">■ 主な特徴</h5>
+                                <div class="space-y-3 text-sm">
+                                    <div><p class="font-bold text-gray-800">・3.0t のコンパクト積載</p><p class="text-gray-500 ml-3 mt-1">ミニショベル（0.05〜0.1 クラス）やハンドガイドローラー、小型発電機などの運搬に最適。小さな現場の日常的な機材回送を効率化します。</p></div>
+                                    <div><p class="font-bold text-gray-800">・抜群の機動力</p><p class="text-gray-500 ml-3 mt-1">中型車ならではの取り回しの良さで、住宅街の細い道や、大型車では入れない狭小現場にも確実にアクセスします。</p></div>
+                                    <div><p class="font-bold text-gray-800">・スライドボディ＋ウインチ</p><p class="text-gray-500 ml-3 mt-1">荷台をスライドさせて地面すれすれまで傾斜させるスライドボディ仕様。ウインチとの併用で、自走・非自走問わず積み降ろし可能です。</p></div>
+                                </div>
+                                <h5 class="font-black text-sm text-gray-900 mb-3 mt-6">■ 主要諸元（スペック）</h5>
+                                <table class="w-full text-sm">
+                                    <tr class="border-b border-gray-100"><td class="py-2 font-bold text-gray-800 w-2/5">最大積載量</td><td class="py-2 text-gray-600">3,000 kg（3.0t）</td></tr>
+                                    <tr class="border-b border-gray-100"><td class="py-2 font-bold text-gray-800">荷台寸法（L×W×H）</td><td class="py-2 text-gray-600">5,000mm × 2,000mm × 1,000mm</td></tr>
+                                    <tr class="border-b border-gray-100"><td class="py-2 font-bold text-gray-800">車両特徴</td><td class="py-2 text-gray-600">スライドボディ / ウインチ完備 / 中型機動車両</td></tr>
+                                    <tr><td class="py-2 font-bold text-gray-800">主な運搬対象</td><td class="py-2 text-gray-600">ミニショベル、ハンドガイドローラー、小型発電機、建設資材など</td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-yellow-500">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-black mb-6">重機運搬のご相談は<br class="md:hidden">お気軽にどうぞ</h2>
+            <p class="text-lg mb-8 opacity-80 max-w-xl mx-auto">お見積り・ご相談は無料です。ICT建機から大型重機まで、最適な輸送プランをご提案いたします。</p>
+            <a href="tel:0280-76-5732" class="inline-block bg-gray-900 hover:bg-gray-800 text-white px-12 py-5 rounded-full font-black text-lg transition-all transform hover:scale-105 shadow-2xl">
+                <span class="flex items-center gap-3"><i data-lucide="phone" class="w-6 h-6"></i> 0280-76-5732</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 pt-20 pb-10">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between gap-16 mb-16">
+                <div class="md:w-1/3">
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="w-20 h-20 flex items-center"><img src="img/logo1.jpg" alt="舟橋リース ロゴマーク"></div>
+                        <div class="w-36 flex items-center"><img src="img/logo.png" alt="有限会社舟橋リース"></div>
+                    </div>
+                    <p class="text-gray-500 mb-4 text-sm leading-relaxed">茨城県古河市を拠点に、重機運搬と貸切バス事業を展開。「綺麗な車で仕事をする」を信条に、安全と信頼を届け続けています。</p>
+                    <div class="space-y-2 text-sm text-gray-700">
+                        <p><span class="font-bold">所在地:</span> 〒306-0101 茨城県古河市尾崎2831-3</p>
+                        <a href="tel:0280-76-5732" class="flex items-center gap-2 font-bold text-gray-900 hover:text-yellow-600 transition-colors">
+                            <i data-lucide="phone" class="w-4 h-4 text-yellow-500"></i> 0280-76-5732
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/3">
+                    <h4 class="font-black text-sm text-gray-400 uppercase tracking-widest mb-4">Pages</h4>
+                    <nav class="grid grid-cols-2 gap-2 text-sm">
+                        <a href="index.html" class="text-gray-700 hover:text-yellow-500 font-bold transition-colors py-1">トップ</a>
+                        <a href="about.html" class="text-gray-700 hover:text-yellow-500 font-bold transition-colors py-1">こだわり</a>
+                        <a href="heavy-transport.html" class="text-yellow-500 font-bold py-1">重機運搬</a>
+                        <a href="charter-bus.html" class="text-gray-700 hover:text-yellow-500 font-bold transition-colors py-1">貸切バス</a>
+                        <a href="recruit.html" class="text-gray-700 hover:text-yellow-500 font-bold transition-colors py-1">採用情報</a>
+                        <a href="contact.html" class="text-gray-700 hover:text-yellow-500 font-bold transition-colors py-1">お問い合わせ</a>
+                    </nav>
+                </div>
+                <div class="md:w-1/3">
+                    <h4 class="font-black text-sm text-gray-400 uppercase tracking-widest mb-4">Follow Us</h4>
+                    <div class="flex gap-4">
+                        <a href="https://www.instagram.com/funabashi.lease.92/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-pink-500 transition-colors"><i data-lucide="instagram" class="w-6 h-6"></i></a>
+                        <a href="https://www.youtube.com/@%E8%88%9F%E6%A9%8B%E3%83%AA%E3%83%BC%E3%82%B9%E3%83%81%E3%83%A3%E3%83%B3%E3%83%8D%E3%83%AB" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-red-600 transition-colors"><i data-lucide="youtube" class="w-6 h-6"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-gray-200 gap-4">
+                <div class="text-gray-300 text-[10px] font-black uppercase tracking-widest">&copy; 2026 有限会社舟橋リース</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Vehicle Photo Lightbox -->
+    <div id="vehicleLightbox" class="vehicle-lightbox" onclick="if(event.target===this)closeLightbox()">
+        <button onclick="closeLightbox()" class="absolute top-4 right-4 z-10 bg-white/10 backdrop-blur-sm rounded-full w-12 h-12 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/25 transition-all cursor-pointer">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+        <button id="lightboxPrev" onclick="lightboxNavigate(-1)" class="lightbox-nav-btn left-4 text-white/70 hover:text-white cursor-pointer">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <button id="lightboxNext" onclick="lightboxNavigate(1)" class="lightbox-nav-btn right-4 text-white/70 hover:text-white cursor-pointer">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+        <img id="lightboxImage" src="" alt="車両写真" class="max-w-[90vw] max-h-[80vh] object-contain rounded-lg shadow-2xl select-none">
+        <div id="lightboxCounter" class="mt-4 text-white/60 text-sm font-bold tracking-widest"></div>
+    </div>
+
+    <!-- Mobile CTA Fixed -->
+    <div class="md:hidden fixed bottom-6 left-6 right-6 z-50">
+        <a href="tel:0280-76-5732" class="bg-yellow-500 text-black font-black py-5 rounded-2xl shadow-2xl flex items-center justify-center gap-3 active:scale-95 transition-transform">
+            <i data-lucide="phone-call" class="w-6 h-6"></i> 電話で相談・予約
+        </a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => { lucide.createIcons(); });
+
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            const isHidden = menu.classList.contains('hidden');
+            menu.classList.toggle('hidden');
+            icon.setAttribute('data-lucide', isHidden ? 'x' : 'menu');
+            lucide.createIcons();
+        }
+
+        function toggleDetail(btn, id) {
+            const el = document.getElementById(id);
+            const icon = btn.querySelector('svg');
+            const span = btn.querySelector('span');
+            el.classList.toggle('open');
+            if (el.classList.contains('open')) { span.textContent = '閉じる'; icon.style.transform = 'rotate(180deg)'; }
+            else { span.textContent = '詳しく見る'; icon.style.transform = 'rotate(0deg)'; }
+        }
+
+        const vehicleImageMap = {
+            'img/trailer2.jpg': ['img/trailer2.jpg'],
+            'img/trailer_2383_01.jpg': ['img/trailer_2383_01.jpg'],
+            'img/trailer_894_01.jpg': ['img/trailer_894_01.jpg'],
+            'img/track4517_01.jpg': ['img/track4517_01.jpg', 'img/track4517_02.jpg'],
+            'img/track8069_01.jpg': ['img/track8069_01.jpg', 'img/track8069_02.jpg'],
+            'img/track1208_01.jpg': ['img/track1208_01.jpg', 'img/track1208_02.jpg'],
+            'img/track79_01.jpg': ['img/track79_01.jpg','img/track79_02.jpg','img/track79_03.jpg','img/track79_04.jpg'],
+            'img/track9148_01.jpg': ['img/track9148_01.jpg', 'img/track9148_02.jpg'],
+        };
+        let lightboxImages = [], lightboxIndex = 0;
+        function openLightbox(imgSrc) { lightboxImages = vehicleImageMap[imgSrc] || [imgSrc]; lightboxIndex = 0; updateLightbox(); document.getElementById('vehicleLightbox').classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeLightbox() { document.getElementById('vehicleLightbox').classList.remove('active'); document.body.style.overflow = ''; }
+        function lightboxNavigate(dir) { if (lightboxImages.length <= 1) return; const img = document.getElementById('lightboxImage'); img.classList.add('fading'); setTimeout(() => { lightboxIndex = (lightboxIndex + dir + lightboxImages.length) % lightboxImages.length; updateLightbox(); img.classList.remove('fading'); }, 200); }
+        function updateLightbox() { const img = document.getElementById('lightboxImage'); const counter = document.getElementById('lightboxCounter'); const prevBtn = document.getElementById('lightboxPrev'); const nextBtn = document.getElementById('lightboxNext'); img.src = lightboxImages[lightboxIndex]; if (lightboxImages.length > 1) { counter.textContent = (lightboxIndex + 1) + ' / ' + lightboxImages.length; prevBtn.style.display = 'flex'; nextBtn.style.display = 'flex'; } else { counter.textContent = ''; prevBtn.style.display = 'none'; nextBtn.style.display = 'none'; } }
+        document.addEventListener('click', function(e) { const photoDiv = e.target.closest('.vehicle-photo'); if (!photoDiv) return; const img = photoDiv.querySelector('img'); if (!img) return; e.preventDefault(); openLightbox(img.getAttribute('src')); });
+        document.addEventListener('keydown', function(e) { const lb = document.getElementById('vehicleLightbox'); if (!lb.classList.contains('active')) return; if (e.key === 'Escape') closeLightbox(); if (e.key === 'ArrowLeft') lightboxNavigate(-1); if (e.key === 'ArrowRight') lightboxNavigate(1); });
+        (function() { let touchStartX = 0; const lb = document.getElementById('vehicleLightbox'); if (!lb) return; lb.addEventListener('touchstart', function(e) { touchStartX = e.changedTouches[0].screenX; }, { passive: true }); lb.addEventListener('touchend', function(e) { const diff = e.changedTouches[0].screenX - touchStartX; if (Math.abs(diff) > 50) lightboxNavigate(diff < 0 ? 1 : -1); }, { passive: true }); })();
+
+        const navbar = document.getElementById('navbar');
+        if (navbar) { window.addEventListener('scroll', () => { if (window.scrollY > 50) { navbar.classList.add('shadow-xl', 'py-3'); navbar.classList.remove('py-4'); } else { navbar.classList.remove('shadow-xl', 'py-3'); navbar.classList.add('py-4'); } }); }
+    </script>
+</body>
+</html>
